@@ -1,0 +1,29 @@
+{
+	"name": "obsidian-obdu",
+	"version": "0.1.0",
+	"description": "ncdu-style disk usage, attachment attribution, reference & orphan analyzer for Obsidian Desktop & Android",
+	"main": "main.js",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"test": "node --test test/graph.test.mjs"
+	},
+	"keywords": [
+		"obsidian",
+		"ncdu",
+		"disk-usage",
+		"attachments",
+		"orphans",
+		"references"
+	],
+	"author": "Markus Litz",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^20.11.0",
+		"builtin-modules": "^3.3.0",
+		"esbuild": "0.21.5",
+		"obsidian": "1.7.2",
+		"tslib": "2.6.2",
+		"typescript": "5.4.5"
+	}
+}

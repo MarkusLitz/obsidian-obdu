@@ -212,8 +212,8 @@ export class ObduTrashService {
 		}
 		const safePath = normalizeSlashPath(relPath);
 		const abstract = this.app.vault.getAbstractFileByPath?.(safePath);
-		if (abstract && typeof this.app.vault.delete === "function") {
-			await this.app.vault.delete(abstract, true);
+		if (abstract && typeof this.app.fileManager?.trashFile === "function") {
+			await this.app.fileManager.trashFile(abstract);
 			return;
 		}
 		const adapter = this.app.vault.adapter;

@@ -9,6 +9,21 @@ async function loadTsModule(entryPoint) {
 		write: false,
 		format: "esm",
 		target: "es2021",
+		plugins: [
+			{
+				name: "obsidian-stub",
+				setup(build) {
+					build.onResolve({ filter: /^obsidian$/ }, () => ({
+						path: "obsidian",
+						namespace: "obsidian-stub",
+					}));
+					build.onLoad({ filter: /.*/, namespace: "obsidian-stub" }, () => ({
+						contents: "export function getLanguage() { return 'en'; }",
+						loader: "js",
+					}));
+				},
+			},
+		],
 	});
 	const code = result.outputFiles[0].text;
 	const dataUrl = `data:text/javascript;base64,${Buffer.from(code, "utf8").toString("base64")}`;

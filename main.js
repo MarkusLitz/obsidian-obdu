@@ -27,30 +27,18 @@ __export(main_exports, {
   default: () => ObduPlugin
 });
 module.exports = __toCommonJS(main_exports);
-var import_obsidian5 = require("obsidian");
+var import_obsidian6 = require("obsidian");
 
 // src/i18n.ts
+var import_obsidian = require("obsidian");
 var localeOverride = null;
 function getObduLocale() {
   if (localeOverride === "en" || localeOverride === "de") {
     return localeOverride;
   }
   try {
-    if (typeof window !== "undefined") {
-      const stored = window.localStorage?.getItem("language");
-      if (stored && stored.toLowerCase().startsWith("de")) {
-        return "de";
-      }
-      if (stored && stored.toLowerCase().startsWith("en")) {
-        return "en";
-      }
-      const winMoment = window.moment;
-      const momentLoc = winMoment?.locale?.();
-      if (momentLoc && momentLoc.toLowerCase().startsWith("de")) {
-        return "de";
-      }
-    }
-    if (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("de")) {
+    const lang = (0, import_obsidian.getLanguage)();
+    if (lang && lang.toLowerCase().startsWith("de")) {
       return "de";
     }
   } catch {
@@ -443,7 +431,7 @@ function i18n() {
 }
 
 // src/ncdu-view.ts
-var import_obsidian2 = require("obsidian");
+var import_obsidian3 = require("obsidian");
 
 // src/parser.ts
 var PRIMARY_NOTE_EXTENSIONS = /* @__PURE__ */ new Set(["md", "canvas", "base"]);
@@ -1287,7 +1275,7 @@ function getNodeBadge(node, sizeMode) {
 }
 
 // src/modals.ts
-var import_obsidian = require("obsidian");
+var import_obsidian2 = require("obsidian");
 
 // src/trash.ts
 var TRASH_ROOT = ".trash";
@@ -1460,8 +1448,8 @@ var ObduTrashService = class {
     }
     const safePath = normalizeSlashPath(relPath);
     const abstract = this.app.vault.getAbstractFileByPath?.(safePath);
-    if (abstract && typeof this.app.vault.delete === "function") {
-      await this.app.vault.delete(abstract, true);
+    if (abstract && typeof this.app.fileManager?.trashFile === "function") {
+      await this.app.fileManager.trashFile(abstract);
       return;
     }
     const adapter = this.app.vault.adapter;
@@ -1557,7 +1545,7 @@ var TEXT_EXTENSIONS = /* @__PURE__ */ new Set([
   "csv",
   "xml"
 ]);
-var ObduInfoModal = class extends import_obsidian.Modal {
+var ObduInfoModal = class extends import_obsidian2.Modal {
   constructor(app, node, blockMode, onAfterClose) {
     super(app);
     this.node = node;
@@ -1656,7 +1644,7 @@ var ObduInfoModal = class extends import_obsidian.Modal {
     return s.kindSystemFile;
   }
 };
-var ObduHelpModal = class extends import_obsidian.Modal {
+var ObduHelpModal = class extends import_obsidian2.Modal {
   constructor(app, onAfterClose) {
     super(app);
     this.onAfterClose = onAfterClose;
@@ -1685,7 +1673,7 @@ var ObduHelpModal = class extends import_obsidian.Modal {
     });
   }
 };
-var ObduPreviewModal = class extends import_obsidian.Modal {
+var ObduPreviewModal = class extends import_obsidian2.Modal {
   constructor(app, node, onAfterClose) {
     super(app);
     this.node = node;
@@ -1758,7 +1746,7 @@ ${s.previewTruncated}` : text;
     }
   }
 };
-var ObduSmartDeleteModal = class extends import_obsidian.Modal {
+var ObduSmartDeleteModal = class extends import_obsidian2.Modal {
   constructor(app, plan, onConfirmDelete, onAfterClose) {
     super(app);
     this.permanent = false;
@@ -1918,7 +1906,7 @@ var VIEW_TYPE_OBDU = "obdu-ncdu-view";
 
 // src/ncdu-view.ts
 var BAR_WIDTH = 12;
-var ObduNcduView = class _ObduNcduView extends import_obsidian2.ItemView {
+var ObduNcduView = class _ObduNcduView extends import_obsidian3.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.graph = null;
@@ -2488,7 +2476,7 @@ var ObduNcduView = class _ObduNcduView extends import_obsidian2.ItemView {
     }
     const pathLine = subBar.createDiv({ cls: "obdu-pathline" });
     pathLine.setText(`--- ${this.describeCurrentLocation()} ---`);
-    if (import_obsidian2.Platform.isMobile) {
+    if (import_obsidian3.Platform.isMobile) {
       const touchBar = this.rootWrapperEl.createDiv({ cls: "obdu-touchbar" });
       const mkTouch = (lbl, fn) => {
         const btn = touchBar.createEl("button", {
@@ -3077,11 +3065,11 @@ var ObduNcduView = class _ObduNcduView extends import_obsidian2.ItemView {
   }
   async openNodeInObsidian(node) {
     const abstract = this.app.vault.getAbstractFileByPath(node.relPath);
-    if (abstract instanceof import_obsidian2.TFile) {
+    if (abstract instanceof import_obsidian3.TFile) {
       const leaf = this.app.workspace.getLeaf("tab");
       await leaf.openFile(abstract);
     } else {
-      new import_obsidian2.Notice(i18n().noticeSystemOrTrashFile(node.relPath));
+      new import_obsidian3.Notice(i18n().noticeSystemOrTrashFile(node.relPath));
     }
   }
   revealSelectedInFinder() {
@@ -3093,7 +3081,7 @@ var ObduNcduView = class _ObduNcduView extends import_obsidian2.ItemView {
     if (typeof appWithFinder.showInFolder === "function") {
       appWithFinder.showInFolder(node.relPath);
     } else {
-      new import_obsidian2.Notice(i18n().noticeShowInFolderDesktopOnly);
+      new import_obsidian3.Notice(i18n().noticeShowInFolderDesktopOnly);
     }
   }
   promptDeleteSelected() {
@@ -3113,10 +3101,10 @@ var ObduNcduView = class _ObduNcduView extends import_obsidian2.ItemView {
           opts
         );
         if (!res.ok) {
-          new import_obsidian2.Notice(s.noticeDeleteFailed(res.error ?? s.errUnknown));
+          new import_obsidian3.Notice(s.noticeDeleteFailed(res.error ?? s.errUnknown));
           return;
         }
-        new import_obsidian2.Notice(
+        new import_obsidian3.Notice(
           opts.permanent || plan.isInsideTrash ? s.noticeDeletedPermanently(node.name) : s.noticeMovedToTrash(node.name)
         );
         if (this.currentPath === node.relPath) {
@@ -3131,7 +3119,7 @@ var ObduNcduView = class _ObduNcduView extends import_obsidian2.ItemView {
 };
 
 // src/scanner.ts
-var import_obsidian3 = require("obsidian");
+var import_obsidian4 = require("obsidian");
 var MAX_NOTE_PARSE_BYTES = 4 * 1024 * 1024;
 var STAT_CONCURRENCY = 24;
 var ObduVaultScanner = class {
@@ -3148,7 +3136,7 @@ var ObduVaultScanner = class {
   async loadBookmarkedPaths() {
     const result = /* @__PURE__ */ new Set();
     const configDir = normalizeVaultRelPath(this.app.vault.configDir);
-    const bookmarksPath = (0, import_obsidian3.normalizePath)(`${configDir}/bookmarks.json`);
+    const bookmarksPath = (0, import_obsidian4.normalizePath)(`${configDir}/bookmarks.json`);
     try {
       if (!await this.app.vault.adapter.exists(bookmarksPath)) {
         return result;
@@ -3235,7 +3223,7 @@ var ObduVaultScanner = class {
               if (!hasHiddenOrSystemPath(relPath) && PRIMARY_NOTE_EXTENSIONS.has(ext) && size <= MAX_NOTE_PARSE_BYTES) {
                 try {
                   const abstract = this.app.vault.getAbstractFileByPath(relPath);
-                  if (abstract instanceof import_obsidian3.TFile) {
+                  if (abstract instanceof import_obsidian4.TFile) {
                     content = await this.app.vault.cachedRead(abstract);
                   } else {
                     content = await adapter.read(relPath);
@@ -3270,8 +3258,8 @@ var ObduVaultScanner = class {
 };
 
 // src/settings.ts
-var import_obsidian4 = require("obsidian");
-var ObduSettingTab = class extends import_obsidian4.PluginSettingTab {
+var import_obsidian5 = require("obsidian");
+var ObduSettingTab = class extends import_obsidian5.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;
@@ -3300,19 +3288,19 @@ var ObduSettingTab = class extends import_obsidian4.PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
     const s = i18n();
-    new import_obsidian4.Setting(containerEl).setName(s.settingSizeModeName).setDesc(s.settingSizeModeDesc).addDropdown(
+    new import_obsidian5.Setting(containerEl).setName(s.settingSizeModeName).setDesc(s.settingSizeModeDesc).addDropdown(
       (dd) => dd.addOption("physical", s.settingSizeModePhysical).addOption("logical", s.settingSizeModeLogical).setValue(this.plugin.settings.defaultSizeMode).onChange(async (val) => {
         this.plugin.settings.defaultSizeMode = val;
         await this.plugin.saveSettings();
       })
     );
-    new import_obsidian4.Setting(containerEl).setName(s.settingShowHiddenName).setDesc(s.settingShowHiddenDesc).addToggle(
+    new import_obsidian5.Setting(containerEl).setName(s.settingShowHiddenName).setDesc(s.settingShowHiddenDesc).addToggle(
       (tg) => tg.setValue(this.plugin.settings.defaultShowHidden).onChange(async (val) => {
         this.plugin.settings.defaultShowHidden = val;
         await this.plugin.saveSettings();
       })
     );
-    new import_obsidian4.Setting(containerEl).setName(s.settingBarStyleName).setDesc(s.settingBarStyleDesc).addDropdown(
+    new import_obsidian5.Setting(containerEl).setName(s.settingBarStyleName).setDesc(s.settingBarStyleDesc).addDropdown(
       (dd) => dd.addOption("both", s.settingBarStyleBoth).addOption("bar", s.settingBarStyleBar).addOption("percent", s.settingBarStylePercent).addOption("none", s.settingBarStyleNone).setValue(this.plugin.settings.defaultBarStyle).onChange(async (val) => {
         this.plugin.settings.defaultBarStyle = val;
         await this.plugin.saveSettings();
@@ -3322,7 +3310,7 @@ var ObduSettingTab = class extends import_obsidian4.PluginSettingTab {
 };
 
 // src/main.ts
-var ObduPlugin = class extends import_obsidian5.Plugin {
+var ObduPlugin = class extends import_obsidian6.Plugin {
   constructor() {
     super(...arguments);
     this.settings = { ...DEFAULT_SETTINGS };

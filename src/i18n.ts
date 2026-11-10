@@ -1,3 +1,4 @@
+import { getLanguage } from "obsidian";
 import { EmptyReason } from "./types";
 
 export type ObduLocale = "en" | "de";
@@ -13,26 +14,8 @@ export function getObduLocale(): ObduLocale {
 		return localeOverride;
 	}
 	try {
-		if (typeof window !== "undefined") {
-			const stored = window.localStorage?.getItem("language");
-			if (stored && stored.toLowerCase().startsWith("de")) {
-				return "de";
-			}
-			if (stored && stored.toLowerCase().startsWith("en")) {
-				return "en";
-			}
-			const winMoment = (
-				window as unknown as { moment?: { locale?: () => string } }
-			).moment;
-			const momentLoc = winMoment?.locale?.();
-			if (momentLoc && momentLoc.toLowerCase().startsWith("de")) {
-				return "de";
-			}
-		}
-		if (
-			typeof navigator !== "undefined" &&
-			navigator.language?.toLowerCase().startsWith("de")
-		) {
+		const lang = getLanguage();
+		if (lang && lang.toLowerCase().startsWith("de")) {
 			return "de";
 		}
 	} catch {

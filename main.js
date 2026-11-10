@@ -90,7 +90,7 @@ var STRINGS = {
     loadingSub: "Analyzing file tree, attachments, and references.",
     emptyListState: "No entries in this view.",
     // Topbar & tabs
-    topBarTitle: "obdu 0.1.0 ~ Use arrow keys or j/k to navigate, ? for help",
+    topBarTitle: "obdu 0.1.1 ~ Use arrow keys or j/k to navigate, ? for help",
     pillLogical: "[m] LOGICAL (with att.)",
     pillPhysical: "[m] PHYSICAL",
     pillBytes: "[a] BYTES",
@@ -275,7 +275,7 @@ var STRINGS = {
     loadingSub: "Dateibaum, Attachments und Referenzen werden analysiert.",
     emptyListState: "Keine Eintr\xE4ge in dieser Ansicht.",
     // Topbar & tabs
-    topBarTitle: "obdu 0.1.0 ~ Pfeiltasten / j k zum Navigieren, ? f\xFCr Hilfe",
+    topBarTitle: "obdu 0.1.1 ~ Pfeiltasten / j k zum Navigieren, ? f\xFCr Hilfe",
     pillLogical: "[m] LOGISCH (inkl. Att.)",
     pillPhysical: "[m] PHYSISCH",
     pillBytes: "[a] BYTES",

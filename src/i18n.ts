@@ -79,7 +79,7 @@ export const STRINGS = {
 		emptyListState: "No entries in this view.",
 
 		// Topbar & tabs
-		topBarTitle: "obdu 0.1.0 ~ Use arrow keys or j/k to navigate, ? for help",
+		topBarTitle: "obdu 0.1.1 ~ Use arrow keys or j/k to navigate, ? for help",
 		pillLogical: "[m] LOGICAL (with att.)",
 		pillPhysical: "[m] PHYSICAL",
 		pillBytes: "[a] BYTES",
@@ -317,7 +317,7 @@ export const STRINGS = {
 
 		// Topbar & tabs
 		topBarTitle:
-			"obdu 0.1.0 ~ Pfeiltasten / j k zum Navigieren, ? für Hilfe",
+			"obdu 0.1.1 ~ Pfeiltasten / j k zum Navigieren, ? für Hilfe",
 		pillLogical: "[m] LOGISCH (inkl. Att.)",
 		pillPhysical: "[m] PHYSISCH",
 		pillBytes: "[a] BYTES",

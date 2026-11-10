@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-obdu",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "ncdu-style disk usage, attachment attribution, reference & orphan analyzer for Obsidian Desktop & Android",
 	"main": "main.js",
 	"scripts": {

@@ -1,7 +1,7 @@
 {
 	"id": "obdu",
 	"name": "Vault Disk Usage (obdu)",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"minAppVersion": "1.8.7",
 	"description": "Analyze vault disk usage in an ncdu-style interface with attachment attribution, reference inspection, and orphan detection.",
 	"author": "Markus Litz",

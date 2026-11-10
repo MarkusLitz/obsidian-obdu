@@ -2,6 +2,10 @@
 
 A lightweight Obsidian plugin (**0 runtime dependencies**, compatible with Desktop & Android) inspired by Linux `ncdu`, built to understand notes, embedded attachments, references, orphaned files, and `.trash`.
 
+It makes it effortless to **spot which notes, folders, and embedded attachments consume the most storage space in your vault**—whether you want to see raw file sizes in place or attribute referenced attachments directly to the notes that embed them.
+
+> **Looking for a standalone terminal CLI?** Check out the companion command-line version: [**`obdu` CLI (`MarkusLitz/obdu`)**](https://github.com/MarkusLitz/obdu).
+
 ![Vault Disk Usage (obdu) screenshot](./docs/screenshot.png)
 
 ## Features
